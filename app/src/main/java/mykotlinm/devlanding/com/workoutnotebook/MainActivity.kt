@@ -7,9 +7,13 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
+import mykotlinm.devlanding.com.workoutnotebook.CreateNewWorkout.CreateNewWorkoutFragment
 import mykotlinm.devlanding.com.workoutnotebook.ListOfWorkouts.ListOfWorkoutsFragment
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 
-class MainActivity : AppCompatActivity(), MainMVP.view, ListOfWorkoutsFragment.OnFragmentInteractionListener{
+class MainActivity : AppCompatActivity(), MainMVP.view,
+        ListOfWorkoutsFragment.OnFragmentInteractionListener, CreateNewWorkoutFragment.OnFragmentInteractionListener{
 
     private var presenter: MainPresenter = MainPresenter(this)
 
@@ -39,6 +43,21 @@ class MainActivity : AppCompatActivity(), MainMVP.view, ListOfWorkoutsFragment.O
         }
 
         return super.onOptionsItemSelected(item)
+    }
+    @Subscribe
+    fun startFragment(fragment: Fragment){
+       supportFragmentManager.beginTransaction()
+               .replace(R.id.container, fragment).commit()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        EventBus.getDefault().register(this)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        EventBus.getDefault().unregister(this)
     }
 
     override fun onFragmentInteraction(uri: Uri) {

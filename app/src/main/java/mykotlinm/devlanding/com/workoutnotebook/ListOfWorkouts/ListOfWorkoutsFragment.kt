@@ -1,8 +1,13 @@
 package mykotlinm.devlanding.com.workoutnotebook.ListOfWorkouts
 
+import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View
 import kotlinx.android.synthetic.main.fragment_list_of_workouts.*
+import mykotlinm.devlanding.com.workoutnotebook.CreateNewWorkout.CreateNewWorkoutFragment
+import org.greenrobot.eventbus.EventBus
+import org.jetbrains.anko.longToast
 
 
 /**
@@ -14,6 +19,11 @@ import kotlinx.android.synthetic.main.fragment_list_of_workouts.*
  * create an instance of this fragment.
  */
 class ListOfWorkoutsFragment : android.support.v4.app.Fragment(), ListOfWorkoutsMVP.view {
+    override fun startCreateNewWorkoutFragment() {
+        val fragment: Fragment = CreateNewWorkoutFragment.newInstance("", "")
+        EventBus.getDefault().post(fragment)
+
+    }
 
     // TODO: Rename and change types of parameters
     private var mParam1: String? = null
@@ -33,13 +43,28 @@ class ListOfWorkoutsFragment : android.support.v4.app.Fragment(), ListOfWorkouts
                               savedInstanceState: android.os.Bundle?): android.view.View? {
         // Inflate the layout for this fragment
         var view = inflater!!.inflate(mykotlinm.devlanding.com.workoutnotebook.R.layout.fragment_list_of_workouts, container, false)
-        listOfWorkouts
         return view;
+    }
+
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        var presenter: ListOfWorkoutsPresenter = ListOfWorkoutsPresenter(this)
+        presenter.initRecyclerView()
+
+       createWorkoutButton.setOnClickListener({presenter.createNewWorkout()})
+
+
     }
 
     override fun initRecyclerView() {
         listOfWorkouts.layoutManager = LinearLayoutManager(context)
         listOfWorkouts.setHasFixedSize(true)
+        var workout1 = Workout("Monday",
+                mutableListOf(Exercise("Row", 50, 2), Exercise("Deadlift", 200, 4)))
+
+        var workouts = mutableListOf(workout1)
+        listOfWorkouts.adapter = Adapter(workouts, context)
     }
     fun onButtonPressed(uri: android.net.Uri) {
         if (mListener != null) {
