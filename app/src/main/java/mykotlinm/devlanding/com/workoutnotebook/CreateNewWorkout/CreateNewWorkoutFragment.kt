@@ -4,9 +4,8 @@ import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import kotlinx.android.synthetic.main.fragment_create_new_workout.*
 
 import mykotlinm.devlanding.com.workoutnotebook.R
 
@@ -29,13 +28,30 @@ class CreateNewWorkoutFragment : Fragment(), CreateNewWorkMVP.view{
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater!!.inflate(R.layout.fragment_create_new_workout, container, false)
+        val view: View =  inflater!!.inflate(R.layout.fragment_create_new_workout, container, false)
+        setHasOptionsMenu(true)
+        return view
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter = CreateNewWorkoutPresenter(this, context)
         presenter.createWorkout("new", "the best workout ever")
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        inflater?.inflate(R.menu.create_workout, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        return super.onOptionsItemSelected(item)
+        when(item?.itemId){
+            R.id.submitWorkout ->{
+                val workoutTitleText = workoutTitle.text.toString()
+                val workoutDescriptionText = workoutDescription.text.toString()
+                presenter.createWorkout(workoutTitleText, workoutDescriptionText)
+            }
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event
