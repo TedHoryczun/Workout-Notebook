@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import mykotlinm.devlanding.com.workoutnotebook.R
+import mykotlinm.devlanding.com.workoutnotebook.Workout
 import org.jetbrains.anko.find
 import org.jetbrains.anko.toast
 

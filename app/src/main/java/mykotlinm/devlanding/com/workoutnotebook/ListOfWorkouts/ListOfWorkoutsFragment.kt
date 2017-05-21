@@ -3,9 +3,12 @@ package mykotlinm.devlanding.com.workoutnotebook.ListOfWorkouts
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.View
 import kotlinx.android.synthetic.main.fragment_list_of_workouts.*
 import mykotlinm.devlanding.com.workoutnotebook.CreateNewWorkout.CreateNewWorkoutFragment
+import mykotlinm.devlanding.com.workoutnotebook.Exercise
+import mykotlinm.devlanding.com.workoutnotebook.Workout
 import org.greenrobot.eventbus.EventBus
 import org.jetbrains.anko.longToast
 
@@ -58,10 +61,11 @@ class ListOfWorkoutsFragment : android.support.v4.app.Fragment(), ListOfWorkouts
     }
 
     override fun initRecyclerView() {
-        listOfWorkouts.layoutManager = LinearLayoutManager(context)
+        listOfWorkouts.layoutManager = LinearLayoutManager(context) as RecyclerView.LayoutManager?
         listOfWorkouts.setHasFixedSize(true)
-        var workout1 = Workout("Monday",
-                mutableListOf(Exercise("Row", 50, 2), Exercise("Deadlift", 200, 4)))
+        var workout1 = Workout("Monday","the best workout")
+
+        workout1.exercises = mutableListOf(Exercise("Row", 50, 2), Exercise("Deadlift", 200, 4))
 
         var workouts = mutableListOf(workout1)
         listOfWorkouts.adapter = Adapter(workouts, context)

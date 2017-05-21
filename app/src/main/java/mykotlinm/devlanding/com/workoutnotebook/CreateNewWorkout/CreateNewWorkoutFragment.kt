@@ -10,21 +10,13 @@ import android.view.ViewGroup
 
 import mykotlinm.devlanding.com.workoutnotebook.R
 
-/**
- * A simple [Fragment] subclass.
- * Activities that contain this fragment must implement the
- * [CreateNewWorkoutFragment.OnFragmentInteractionListener] interface
- * to handle interaction events.
- * Use the [CreateNewWorkoutFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class CreateNewWorkoutFragment : Fragment() {
+class CreateNewWorkoutFragment : Fragment(), CreateNewWorkMVP.view{
 
-    // TODO: Rename and change types of parameters
     private var mParam1: String? = null
     private var mParam2: String? = null
 
     private var mListener: OnFragmentInteractionListener? = null
+    private lateinit var presenter: CreateNewWorkoutPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +30,12 @@ class CreateNewWorkoutFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         return inflater!!.inflate(R.layout.fragment_create_new_workout, container, false)
+    }
+
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        presenter = CreateNewWorkoutPresenter(this, context)
+        presenter.createWorkout("new", "the best workout ever")
     }
 
     // TODO: Rename method, update argument and hook method into UI event
