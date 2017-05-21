@@ -1,4 +1,4 @@
-package mykotlinm.devlanding.com.workoutnotebook
+package mykotlinm.devlanding.com.workoutnotebook.Database.Model
 
 
 /**

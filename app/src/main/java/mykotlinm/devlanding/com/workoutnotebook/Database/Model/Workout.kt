@@ -1,6 +1,4 @@
-package mykotlinm.devlanding.com.workoutnotebook
-
-import android.support.annotation.NonNull
+package mykotlinm.devlanding.com.workoutnotebook.Database.Model
 
 /**
  * Created by ted on 5/19/17.

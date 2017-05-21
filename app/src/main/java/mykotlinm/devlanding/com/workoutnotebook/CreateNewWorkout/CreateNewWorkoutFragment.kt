@@ -6,10 +6,12 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.*
 import kotlinx.android.synthetic.main.fragment_create_new_workout.*
+import mykotlinm.devlanding.com.workoutnotebook.DisplayWorkout.DisplayWorkoutFragment
 
 import mykotlinm.devlanding.com.workoutnotebook.R
+import org.greenrobot.eventbus.EventBus
 
-class CreateNewWorkoutFragment : Fragment(), CreateNewWorkMVP.view{
+class CreateNewWorkoutFragment : Fragment(), CreateNewWorkMVP.view {
 
     private var mParam1: String? = null
     private var mParam2: String? = null
@@ -28,7 +30,7 @@ class CreateNewWorkoutFragment : Fragment(), CreateNewWorkMVP.view{
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        val view: View =  inflater!!.inflate(R.layout.fragment_create_new_workout, container, false)
+        val view: View = inflater!!.inflate(R.layout.fragment_create_new_workout, container, false)
         setHasOptionsMenu(true)
         return view
     }
@@ -44,14 +46,20 @@ class CreateNewWorkoutFragment : Fragment(), CreateNewWorkMVP.view{
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        return super.onOptionsItemSelected(item)
-        when(item?.itemId){
-            R.id.submitWorkout ->{
+        when (item?.itemId) {
+            R.id.submitWorkout -> {
                 val workoutTitleText = workoutTitle.text.toString()
                 val workoutDescriptionText = workoutDescription.text.toString()
-                presenter.createWorkout(workoutTitleText, workoutDescriptionText)
+                val uuidOfWorkout: String = presenter.createWorkout(workoutTitleText, workoutDescriptionText)
+                presenter.displayWorkout(uuidOfWorkout)
             }
         }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun startDisplayWorkoutFragment(uuidOfWorkout: String) {
+        val startEditWorkout: Fragment = DisplayWorkoutFragment.newInstance(uuidOfWorkout, "")
+        EventBus.getDefault().post(startEditWorkout)
     }
 
     // TODO: Rename method, update argument and hook method into UI event

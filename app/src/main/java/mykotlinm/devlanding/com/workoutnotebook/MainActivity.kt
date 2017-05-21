@@ -8,12 +8,15 @@ import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
 import mykotlinm.devlanding.com.workoutnotebook.CreateNewWorkout.CreateNewWorkoutFragment
+import mykotlinm.devlanding.com.workoutnotebook.DisplayWorkout.DisplayWorkoutFragment
 import mykotlinm.devlanding.com.workoutnotebook.ListOfWorkouts.ListOfWorkoutsFragment
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 
 class MainActivity : AppCompatActivity(), MainMVP.view,
-        ListOfWorkoutsFragment.OnFragmentInteractionListener, CreateNewWorkoutFragment.OnFragmentInteractionListener{
+        ListOfWorkoutsFragment.OnFragmentInteractionListener,
+        CreateNewWorkoutFragment.OnFragmentInteractionListener,
+        DisplayWorkoutFragment.OnFragmentInteractionListener{
 
     private var presenter: MainPresenter = MainPresenter(this)
 
@@ -61,6 +64,5 @@ class MainActivity : AppCompatActivity(), MainMVP.view,
     }
 
     override fun onFragmentInteraction(uri: Uri) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

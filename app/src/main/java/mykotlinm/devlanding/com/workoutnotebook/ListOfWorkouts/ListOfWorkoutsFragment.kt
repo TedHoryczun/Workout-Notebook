@@ -7,10 +7,9 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import kotlinx.android.synthetic.main.fragment_list_of_workouts.*
 import mykotlinm.devlanding.com.workoutnotebook.CreateNewWorkout.CreateNewWorkoutFragment
-import mykotlinm.devlanding.com.workoutnotebook.Exercise
-import mykotlinm.devlanding.com.workoutnotebook.Workout
+import mykotlinm.devlanding.com.workoutnotebook.Database.Model.Exercise
+import mykotlinm.devlanding.com.workoutnotebook.Database.Model.Workout
 import org.greenrobot.eventbus.EventBus
-import org.jetbrains.anko.longToast
 
 
 /**

@@ -5,10 +5,12 @@ package mykotlinm.devlanding.com.workoutnotebook.CreateNewWorkout
  */
 interface CreateNewWorkMVP{
     interface view{
+        fun startDisplayWorkoutFragment(uuidOfWorkout: String)
 
     }
     interface preseneter{
 
-        fun createWorkout(workoutTitle: String, workoutDescription: String)
+        fun createWorkout(workoutTitle: String, workoutDescription: String): String
+        fun displayWorkout(uuidOfWorkout: String)
     }
 }
